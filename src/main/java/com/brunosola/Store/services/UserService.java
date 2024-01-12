@@ -2,6 +2,7 @@ package com.brunosola.Store.services;
 
 import com.brunosola.Store.entities.User;
 import com.brunosola.Store.repositories.UserRepository;
+import com.brunosola.Store.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class UserService {
 
     public User findById(Long id){
         Optional<User> obj = repository.findById(id);
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public User insert(User obj){
